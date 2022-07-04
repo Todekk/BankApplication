@@ -3,20 +3,17 @@ import java.util.Scanner;
 public class BankDetails {
     private String accid;
     private String name;
-    private String acc_type;
-    private long balance;
+    private double balance;
     Scanner sc = new Scanner(System.in);
     public void openAccount(){
         System.out.println("==================================================");
         System.out.println("=================Account Creation=================");
         System.out.print("Enter Account ID: ");
         accid = sc.next();
-        System.out.print("Enter Account Type: ");
-        acc_type = sc.next();
         System.out.print("Enter Name: ");
         name = sc.next();
         System.out.print("Enter Balance: ");
-        balance = sc.nextLong();
+        balance = sc.nextDouble();
     }
 //Displaying account details
     public void showAccount() {
@@ -24,32 +21,33 @@ public class BankDetails {
         System.out.println("=================Account Details==================");
         System.out.println("Account holder: " + name);
         System.out.println("Account ID: " + accid);
-        System.out.println("Account type: " + acc_type);
-        System.out.println("Balance: " + balance);
+        System.out.println("Balance Levs: " + balance + "lv.");
+        System.out.println("Balance Euros: €" + (double) Math.round((balance*0.51)*100)/100);
+        System.out.println("Balance Dollars: $" + (double) Math.round((balance*0.531)*100)/100);
     }
     //Depositing funds
     public void deposit(){
-        long amt;
+        double amount;
         System.out.println("==================================================");
         System.out.println("=================Account Deposit==================");
         System.out.println("Enter the amount you want to deposit: ");
-        amt = sc.nextLong();
-        balance = balance + amt;
+        amount = sc.nextDouble();
+        balance = balance + amount;
 
     }
 
     public void withdraw(){
-        long amt;
+        double amount;
         System.out.println("==================================================");
         System.out.println("=================Account Withdraw=================");
         System.out.println("Enter the amount to withdraw: ");
-        amt = sc.nextLong();
-        if(balance >= amt){
-            balance = balance - amt;
+        amount = sc.nextDouble();
+        if(balance >= amount){
+            balance = balance - amount;
             System.out.println(("Balance after withdraw: " + balance));
         }
         else {
-        System.out.println("Your balance is less than " + amt + "\tTransaction failed!");
+        System.out.println("Your balance is less than " + amount + ".\tTransaction failed!");
         }
 
     }
