@@ -14,6 +14,7 @@ public class MyJDBC {
 
             while (resultSet.next()) {
                 System.out.println(resultSet.getString("name"));
+                System.out.println(resultSet.getString("balance"));
             }
         } catch (Exception e) {
             e.printStackTrace();
