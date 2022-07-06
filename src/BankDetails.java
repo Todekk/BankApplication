@@ -1,42 +1,88 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Scanner;
 
 public class BankDetails {
-    private String accid;
-    private String name;
+    String url="jdbc:mysql://localhost:3306/bankapp";
+    String user="root";
+    String pass="1234";
     private double balance;
     Scanner sc = new Scanner(System.in);
     public void openAccount(){
         System.out.println("==================================================");
         System.out.println("=================Account Creation=================");
-        System.out.print("Enter Account ID: ");
-        accid = sc.next();
-        System.out.print("Enter Name: ");
-        name = sc.next();
-        System.out.print("Enter Balance: ");
-        balance = sc.nextDouble();
+        try {
+            Connection connection = DriverManager.getConnection(url, user, pass);
+
+            Statement statement = connection.createStatement();
+
+            Scanner scanner=new Scanner(System.in);
+            System.out.println("Enter Username");
+            String username=scanner.next();
+            System.out.println("Enter balance");
+            int balance=scanner.nextInt();
+
+            statement.executeUpdate("insert into users(name, balance) value('"+username+"','"+balance+"')");
+            System.out.println("Values inserted successfully!");
+
+
+            /*ResultSet resultSet = statement.executeQuery("select * from users");
+
+            while (resultSet.next()) {
+                System.out.println(resultSet.getString("name"));
+                System.out.println(resultSet.getString("balance"));
+            }*/
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 //Displaying account details
     public void showAccount() {
         System.out.println("==================================================");
         System.out.println("=================Account Details==================");
-        System.out.println("Account holder: " + name);
-        System.out.println("Account ID: " + accid);
-        System.out.println("Balance Levs: " + balance + "lv.");
-        System.out.println("Balance Euros: €" + (double) Math.round((balance*0.51)*100)/100);
-        System.out.println("Balance Dollars: $" + (double) Math.round((balance*0.531)*100)/100);
+        try {
+            Connection connection = DriverManager.getConnection(url, user, pass);
+
+            Statement statement = connection.createStatement();
+
+
+            ResultSet resultSet = statement.executeQuery("select * from users");
+
+            while (resultSet.next()) {
+                System.out.println("==================================================");
+                System.out.print("User ID: " + resultSet.getString("id"));
+                System.out.print("\n Username: " + resultSet.getString("name"));
+                System.out.print("\n Balance: " + resultSet.getString("balance"));
+                System.out.println("\n==================================================");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     //Depositing funds
     public void deposit(){
         double amount;
         System.out.println("==================================================");
         System.out.println("=================Account Deposit==================");
-        System.out.println("Enter the amount you want to deposit: ");
-        amount = sc.nextDouble();
-        balance = balance + amount;
+        /*System.out.println("Enter the amount you want to deposit: ");
+        amount = sc.nextDouble();*/
+        try {
+            Connection connection = DriverManager.getConnection(url, user, pass);
+
+            Statement statement = connection.createStatement();
+
+            String updateQuery="update users set name = 'Todek', balance='5000' where id= 1";
+            statement.executeUpdate(updateQuery);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
 
-    public void withdraw(){
+    /*public void withdraw(){
         double amount;
         System.out.println("==================================================");
         System.out.println("=================Account Withdraw=================");
@@ -57,5 +103,5 @@ public class BankDetails {
             return(true);
         }
         return (false);
-    }
+    }*/
 }

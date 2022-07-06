@@ -4,13 +4,10 @@ public class BankApplication {
     public static void main(String arg[]){
         Scanner sc = new Scanner(System.in);
         System.out.println("How many customers do you want to create ?");
-        int n = sc.nextInt();
-        BankDetails C[] = new BankDetails[n];
-        for (int i = 0; i < C.length; i++)
-        {
-            C[i] = new BankDetails();
-            C[i].openAccount();
-        }
+             BankDetails cA;
+            cA = new BankDetails();
+            cA.openAccount();
+
         int ch;
         do {
             System.out.println("==================================================");
@@ -21,53 +18,20 @@ public class BankApplication {
             switch(ch) {
 
                 case 1:
-                    for (int i = 0; i < C.length; i++) {
-                        C[i].showAccount();
-                    }
+                    BankDetails sa;
+                    sa = new BankDetails();
+                    sa.showAccount();
                     break;
                 case 2:
-                    System.out.print("Enter the account ID you searching for: ");
-                    String ac_id = sc.next();
-                    boolean found = false;
-                    for (int i = 0; i < C.length; i++) {
-                        found = C[i].search(ac_id);
-                        if (found) {
-                            break;
-                        }
-                    }
-                    if (!found) {
-                        System.out.println("Account doesn't exist! Are you sure you entered the right ID?");
-                    }
+                    BankDetails dep;
+                    dep = new BankDetails();
+                    dep.deposit();
                     break;
                 case 3:
-                    System.out.print("Enter Account ID: ");
-                    ac_id = sc.next();
-                    found = false;
-                    for (int i = 0; i < C.length; i++) {
-                        found = C[i].search(ac_id);
-                        if (found) {
-                            C[i].deposit();
-                            break;
-                        }
-                    }
-                    if (!found) {
-                        System.out.println("Account doesn't exist! Are you sure you entered the right ID?");
-                    }
+                    System.out.print("Enter the account ID you searching for: ");
                     break;
                 case 4:
-                    System.out.print("Enter Account ID : ");
-                    ac_id = sc.next();
-                    found = false;
-                    for (int i = 0; i < C.length; i++) {
-                        found = C[i].search(ac_id);
-                        if (found) {
-                            C[i].withdraw();
-                            break;
-                        }
-                    }
-                    if (!found) {
-                        System.out.println("Account doesn't exist! Are you sure you entered the right ID?");
-                    }
+                    System.out.print("Enter the account ID you searching for: ");
                     break;
                 case 5:
                     System.out.println("Exiting application!");
