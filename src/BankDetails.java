@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 import static java.lang.Runtime.getRuntime;
 
@@ -36,10 +37,14 @@ public class BankDetails {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from users");
             while (resultSet.next()) {
+                DecimalFormat f = new DecimalFormat("##.00");
                 System.out.println("==================================================");
                 System.out.print("User ID: " + resultSet.getString("id"));
                 System.out.print("\n Username: " + resultSet.getString("name"));
                 System.out.print("\n Balance: " + resultSet.getString("balance"));
+                System.out.print("\n Balance (Euro): €" + f.format((resultSet.getDouble("balance")*0.51)));
+                System.out.print("\n Balance (Dollars): $" + f.format((resultSet.getDouble("balance")*0.53)));
+                System.out.print("\n Balance (Yen): ¥" + f.format((resultSet.getDouble("balance")*70.68)));
                 System.out.println("\n==================================================");
             }
         } catch (Exception e) {
@@ -48,7 +53,6 @@ public class BankDetails {
     }
     //Depositing funds
     public void deposit(){
-        double amount;
         System.out.println("==================================================");
         System.out.println("=================Account Deposit==================");
         try {
@@ -59,9 +63,9 @@ public class BankDetails {
             System.out.println("Enter ID");
             int userId=sc.nextInt();
             System.out.println("Deposit amount: ");
-            int deposit=sc.nextInt();
-            int balance = resultSet.getInt("balance");
-            int newBalance = deposit + balance;
+            double deposit=sc.nextInt();
+            double balance = resultSet.getInt("balance");
+            double newBalance = deposit + balance;
                 String updateQuery="update users set balance="+newBalance+" where id="+userId+"";
                 statement.executeUpdate(updateQuery);
             }
@@ -73,7 +77,7 @@ public class BankDetails {
     public void withdraw(){
         double amount;
         System.out.println("==================================================");
-        System.out.println("=================Account Deposit==================");
+        System.out.println("=================Account Withdraw=================");
         try {
             Connection connection = DriverManager.getConnection(url, user, pass);
             Statement statement = connection.createStatement();
@@ -82,9 +86,9 @@ public class BankDetails {
                 System.out.println("Enter ID");
                 int userId=sc.nextInt();
                 System.out.println("Withdraw amount: ");
-                int withdraw=sc.nextInt();
-                int balance = resultSet.getInt("balance");
-                int newBalance = balance - withdraw;
+                double withdraw=sc.nextInt();
+                double balance = resultSet.getInt("balance");
+                double newBalance = balance - withdraw;
                 if(withdraw > balance)
                 {
                     System.out.println("You don't have sufficient funds!");
