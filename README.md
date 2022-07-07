@@ -1,7 +1,7 @@
 # BankApplication
 ## IN ORDER FOR THE APPLICATION TO WORK YOU NEED A LOCAL MYSQL SERVER
 ![image](https://user-images.githubusercontent.com/47458826/177671304-29f5a7f6-59a5-43a9-80bc-5542d29e7808.png)
-<br />Change the URL to the URL of your database and then do the same for the username and password.
+<br />Change the URL to the URL of your database and then do the same for the username and password, everything is located in BankDetails.java.
 ## Menu Screen
 ![image](https://user-images.githubusercontent.com/47458826/177668429-56611826-9a7a-4a89-ac54-8876475439f4.png)
 <br />Users can:
